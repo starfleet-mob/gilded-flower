@@ -2,6 +2,9 @@ package com.gildedrose;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.HashMap;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,21 +56,43 @@ public class GildedRoseTest {
         		assertTrue(i.quality==80);
         	}
         }
-        //assertTrue()
     }
     
     @Test
     public void lowerValuesTest() {
+    	
+    	String [] decreaseQualityList = {"+5 Dexterity Vest",
+    									 "Elixir of the Mongoose",
+    									 "Backstage passes to a TAFKAL80ETC concert",
+    									 "Conjured Mana Cake"};
+    	
+    	HashMap<String, Integer> decQA = new HashMap<String, Integer>();
+    	
     	GildedRose app = new GildedRose(items);  
     	
     	for ( Item i : items){
-    		if( i.name.equals("Elixir of the Mongoose")){
+    		if (Arrays.asList(decreaseQualityList).contains(i.name)){    			
+    			decQA.put(i.name, i.quality);                                
+    		}        
+    	}
+    	app.updateQuality();
+    	// assertTrue( temp > i.quality);
+    }
+    
+ // -test duplicate for new value
+    @Test
+    public void lowerValuesTest2() {
+    	GildedRose app = new GildedRose(items);  
+    	
+    	for ( Item i : items){
+    		if( i.name.equals("+5 Dexterity Vest")){
     			int temp  = i.quality;
                app.updateQuality();
                assertTrue( temp > i.quality);
     		}
     	}
-    }
+    }    
+// -end test    
     
     @Test
     public void ageBrieQualityTest() {
