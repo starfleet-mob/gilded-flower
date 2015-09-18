@@ -18,8 +18,8 @@ public class GildedRoseTest {
                 new Item("+5 Dexterity Vest", 10, 20), //
                 new Item("Aged Brie", 2, 0), //
                 new Item("Elixir of the Mongoose", 5, 7), //
-                new Item("Sulfuras, Hand of Ragnaros", 0, 80), //
-                new Item("Sulfuras, Hand of Ragnaros", -1, 80),
+                new Item("Sulfuras, Hand of Ragnaros", 0, 50), //
+                new Item("Sulfuras, Hand of Ragnaros", -1, 50),
                 new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
                 new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
                 new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
@@ -47,13 +47,14 @@ public class GildedRoseTest {
         assertTrue(items.length == 1);
     }
 
+    // Tests the requirement that "Sulfuras", being a legendary item, never has to be sold or decreases in Quality.
     @Test
-    public void sulfurasExistsAndIs80ValTest() {
+    public void sulfurasBehaviorTest() {
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         for(Item i : items){
         	if(i.name.equals("Sulfuras, Hand of Ragnaros")){
-        		assertTrue(i.quality==80);
+        		assertTrue(i.quality==50);
         	}
         }
     }
@@ -157,7 +158,8 @@ public class GildedRoseTest {
   }
   
   //tests requirement:
-  //Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less
+  //Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less.
+  // Also tests that the quality drops to 0 after the concert.
   @Test
   public void testBackstagePassQualityDecreasesDoubly() {
 	  Item i = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 10);
@@ -187,6 +189,20 @@ public class GildedRoseTest {
 	  assertTrue(i.quality==24);
 	  
   }
+  
+  // Tests the requirement that the Quality of an item is never more than 50.
+  @Test
+  public void testQualityOfAnItemIsNeverMoreThanFifty() {
+	  Item i = new Item("Backstage passes to a TAFKAL80ETC concert", 8, 49);
+	  GildedRose app = new GildedRose(new Item[]{i});
+
+	  app.updateQuality();
+	  app.updateQuality();
+
+	  assertTrue(i.quality <= 50);
+  }
+  
+  
 }
 
 /*
