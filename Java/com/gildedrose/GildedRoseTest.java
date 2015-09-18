@@ -156,6 +156,8 @@ public class GildedRoseTest {
 	  }
   }
   
+  //tests requirement:
+  //Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less
   @Test
   public void testBackstagePassQualityDecreasesDoubly() {
 	  Item i = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 10);
