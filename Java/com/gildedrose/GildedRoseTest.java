@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class GildedRoseTest {
@@ -236,6 +237,16 @@ public class GildedRoseTest {
   }
   
   //"Conjured" items degrade in Quality twice as fast as normal items
+  @Test 
+  @Ignore
+  public void testConjuredItemsDegradeQuality2x() {
+      Item i = new Item("Conjured Tester", 1, 20);
+      GildedRose app = new GildedRose(new Item[]{i});
+      app.updateQuality();
+      assertTrue(i.quality == 18);
+      app.updateQuality();
+      assertTrue(i.quality == 14);
+  } 
 }
 
 /*
