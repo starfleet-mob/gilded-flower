@@ -155,7 +155,36 @@ public class GildedRoseTest {
 		  assertTrue(i.quality >= 0);
 	  }
   }
-
+  
+  @Test
+  public void testBackstagePassQualityDecreasesDoubly() {
+	  Item i = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 10);
+	  GildedRose app = new GildedRose(new Item[]{i});
+	  assertTrue(i.sellIn==11);
+	  assertTrue(i.quality==10);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==10);
+	  assertTrue(i.quality==11);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==9);
+	  assertTrue(i.quality==13);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==8);
+	  assertTrue(i.quality==15);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==7);
+	  assertTrue(i.quality==17);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==6);
+	  assertTrue(i.quality==19);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==5);
+	  assertTrue(i.quality==21);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==4);
+	  assertTrue(i.quality==24);
+	  
+  }
 }
 
 /*
