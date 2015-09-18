@@ -187,6 +187,21 @@ public class GildedRoseTest {
 	  app.updateQuality();
 	  assertTrue(i.sellIn==4);
 	  assertTrue(i.quality==24);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==3);
+	  assertTrue(i.quality==27);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==2);
+	  assertTrue(i.quality==30);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==1);
+	  assertTrue(i.quality==33);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==0);
+	  assertTrue(i.quality==36);
+	  app.updateQuality();
+	  assertTrue(i.sellIn==-1);
+	  assertTrue(i.quality==0);
 	  
   }
   
