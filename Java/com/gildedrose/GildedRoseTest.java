@@ -51,12 +51,19 @@ public class GildedRoseTest {
     @Test
     public void sulfurasBehaviorTest() {
         GildedRose app = new GildedRose(items);
+        
         app.updateQuality();
         for(Item i : items){
         	if(i.name.equals("Sulfuras, Hand of Ragnaros")){
         		assertTrue(i.quality==50);
+        		int sellIn = i.sellIn;
+        		app.updateQuality();
+        		assertTrue(i.sellIn == sellIn);
+
         	}
         }
+        
+        
     }
      
     @Test
@@ -115,8 +122,9 @@ public class GildedRoseTest {
     	}
     }
     
+    // Tests "Aged Brie" actually increases in Quality the older it gets
    @Test
-   public void ageBrieSellInZeroTest() {
+   public void ageBriebehaviorTest() {
 	   GildedRose app = new GildedRose(items);
 	   
 	   for ( Item i : items) {
@@ -125,7 +133,7 @@ public class GildedRoseTest {
    			while (i.sellIn >= 0) {
    				app.updateQuality();
    			}
-   			assertTrue( temp < i.quality);
+   			assertTrue( temp < i.quality);	
    		}
    	}
    }
@@ -143,7 +151,7 @@ public class GildedRoseTest {
 	  // Find max sellin.
 	  int maxSellin = -1;
 	  for (Item i: items) {
-	    maxSellin = Integer.max(maxSellin, i.sellIn);
+	    maxSellin = Math.max(maxSellin, i.sellIn);
 	  }
 	  
 	  // Update quality enough to ensure things would go negative.
@@ -215,9 +223,19 @@ public class GildedRoseTest {
 	  app.updateQuality();
 
 	  assertTrue(i.quality <= 50);
+	  
   }
   
+  //Once the sell by date has passed, Quality degrades twice as fast
+  @Test
+  public void testOnceSellDateIsPastQualityDecreasesTwiceAsFast() {
+	  Item i = new Item("+5 Dexterity Vest", -1, 20);
+	  GildedRose app = new GildedRose(new Item[]{i});
+	  app.updateQuality();
+	  assertTrue(i.quality == 18);
+  }
   
+  //"Conjured" items degrade in Quality twice as fast as normal items
 }
 
 /*
