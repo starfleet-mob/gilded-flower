@@ -11,38 +11,28 @@ import org.junit.Test;
 
 public class GildedRoseTest {
     
-	Item[] items;
+	UpdatableItem[] items;
     
 	@Before
 	public void setUp() throws Exception {
-		items = new Item[] {
-                new Item("+5 Dexterity Vest", 10, 20), //
-                new Item("Aged Brie", 2, 0), //
-                new Item("Elixir of the Mongoose", 5, 7), //
-                new Item("Sulfuras, Hand of Ragnaros", 0, 50), //
-                new Item("Sulfuras, Hand of Ragnaros", -1, 50),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 5, 40),
+		items = new UpdatableItem[] {
+                new UpdatableItem("+5 Dexterity Vest", 10, 20), //
+                new AgedBrie("Aged Brie", 2, 0), //
+                new UpdatableItem("Elixir of the Mongoose", 5, 7), //
+                new Sulfuras("Sulfuras, Hand of Ragnaros", 0, 50), //
+                new Sulfuras("Sulfuras, Hand of Ragnaros", -1, 50),
+                new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+                new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+                new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+                new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 5, 40),
                 // this conjured item does not work properly yet
-                new Item("Conjured Mana Cake", 3, 6) };
+                new UpdatableItem("Conjured Mana Cake", 3, 6) };
 	}
 
-	private Item findItem (String itemName)
-	{
-        for(Item i : items){
-        	if(i.name.equals(itemName)){
-        	    return i;
-        	}
-        } 	
-        fail();
-        return new Item("New Item",0,0);
-	}
 	
     @Test
     public void ItemCreationWorksTest() {
-        items = new Item[] { new Item("foo", 0, 0) };
+        items = new UpdatableItem[] { new UpdatableItem("foo", 0, 0) };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertTrue(items.length == 1);
@@ -54,7 +44,7 @@ public class GildedRoseTest {
         GildedRose app = new GildedRose(items);
         
         app.updateQuality();
-        for(Item i : items){
+        for(UpdatableItem i : items){
         	if(i.name.equals("Sulfuras, Hand of Ragnaros")){
         		assertTrue(i.quality==50);
         		int sellIn = i.sellIn;
@@ -80,7 +70,7 @@ public class GildedRoseTest {
     	
     	GildedRose app = new GildedRose(items);  
     	
-    	for (Item i : items){
+    	for (UpdatableItem i : items){
     		if (Arrays.asList(decreaseQualityList).contains(i.name)){    			
     			decQA.put(i.name, i.quality);                                
     		}        
@@ -88,7 +78,7 @@ public class GildedRoseTest {
     	
     	app.updateQuality();
     	
-    	for (Item i : items){
+    	for (UpdatableItem i : items){
     		if (Arrays.asList(decreaseQualityList).contains(i.name)){    			
     			assertTrue(decQA.get(i.name) >= i.quality);
     		}  	
@@ -100,7 +90,7 @@ public class GildedRoseTest {
     public void lowerValuesTest2() {
     	GildedRose app = new GildedRose(items);  
     	
-    	for ( Item i : items){
+    	for ( UpdatableItem i : items){
     		if( i.name.equals("+5 Dexterity Vest")){
     			int temp  = i.quality;
                app.updateQuality();
@@ -114,7 +104,7 @@ public class GildedRoseTest {
     public void ageBrieQualityTest() {
     	GildedRose app = new GildedRose(items);
     	
-    	for ( Item i : items) {
+    	for ( UpdatableItem i : items) {
     		if ( i.name.equals("Aged Brie")) {
     			int temp = i.quality;
     			app.updateQuality();
@@ -128,7 +118,7 @@ public class GildedRoseTest {
    public void ageBriebehaviorTest() {
 	   GildedRose app = new GildedRose(items);
 	   
-	   for ( Item i : items) {
+	   for ( UpdatableItem i : items) {
    		if ( i.name.equals("Aged Brie")) {
    			int temp = i.quality;
    			while (i.sellIn >= 0) {
@@ -141,7 +131,7 @@ public class GildedRoseTest {
 
   @Test
   public void itemToStringTest() {
-	  Item i = new Item("TestName", 1, 2);
+	  UpdatableItem i = new UpdatableItem("TestName", 1, 2);
 	  assertTrue(i.toString().equals("TestName, 1, 2"));
   }
   
@@ -151,7 +141,7 @@ public class GildedRoseTest {
 	  
 	  // Find max sellin.
 	  int maxSellin = -1;
-	  for (Item i: items) {
+	  for (UpdatableItem i: items) {
 	    maxSellin = Math.max(maxSellin, i.sellIn);
 	  }
 	  
@@ -161,7 +151,7 @@ public class GildedRoseTest {
 	  }
 
 	  // Make sure all item qualities are never negative.
-	  for (Item i: items) {
+	  for (UpdatableItem i: items) {
 		  assertTrue(i.quality >= 0);
 	  }
   }
@@ -171,8 +161,8 @@ public class GildedRoseTest {
   // Also tests that the quality drops to 0 after the concert.
   @Test
   public void testBackstagePassQualityDecreasesDoubly() {
-	  Item i = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 10);
-	  GildedRose app = new GildedRose(new Item[]{i});
+	  BackstagePass i = new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 11, 10);
+	  GildedRose app = new GildedRose(new UpdatableItem[]{i});
 	  assertTrue(i.sellIn==11);
 	  assertTrue(i.quality==10);
 	  app.updateQuality();
@@ -217,8 +207,8 @@ public class GildedRoseTest {
   // Tests the requirement that the Quality of an item is never more than 50.
   @Test
   public void testQualityOfAnItemIsNeverMoreThanFifty() {
-	  Item i = new Item("Backstage passes to a TAFKAL80ETC concert", 8, 49);
-	  GildedRose app = new GildedRose(new Item[]{i});
+	  BackstagePass i = new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 8, 49);
+	  GildedRose app = new GildedRose(new UpdatableItem[]{i});
 
 	  app.updateQuality();
 	  app.updateQuality();
@@ -230,8 +220,8 @@ public class GildedRoseTest {
   //Once the sell by date has passed, Quality degrades twice as fast
   @Test
   public void testOnceSellDateIsPastQualityDecreasesTwiceAsFast() {
-	  Item i = new Item("+5 Dexterity Vest", -1, 20);
-	  GildedRose app = new GildedRose(new Item[]{i});
+	  UpdatableItem i = new UpdatableItem("+5 Dexterity Vest", -1, 20);
+	  GildedRose app = new GildedRose(new UpdatableItem[]{i});
 	  app.updateQuality();
 	  assertTrue(i.quality == 18);
   }
@@ -240,8 +230,8 @@ public class GildedRoseTest {
   @Test 
   @Ignore
   public void testConjuredItemsDegradeQuality2x() {
-      Item i = new Item("Conjured Tester", 1, 20);
-      GildedRose app = new GildedRose(new Item[]{i});
+      UpdatableItem i = new UpdatableItem("Conjured Tester", 1, 20);
+      GildedRose app = new GildedRose(new UpdatableItem[]{i});
       app.updateQuality();
       assertTrue(i.quality == 18);
       app.updateQuality();

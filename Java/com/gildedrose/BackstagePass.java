@@ -12,13 +12,17 @@ public class BackstagePass extends UpdatableItem {
 			this.quality = 0;    
         }
         else if(this.sellIn <= 10 && this.sellIn > 5){
-            this.quality += 2* qualityDec;
+            this.quality += 2;
             
         }
         else if (this.sellIn <= 5 && this.sellIn > 0){
-        	this.quality += 3* qualityDec;
+        	this.quality += 3;
         }
-		
+        else {
+        	this.quality++;
+        }
+		this.quality = Math.min(50, this.quality);
+		this.sellIn--;
 	}
 	
 }
