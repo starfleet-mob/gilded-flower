@@ -134,6 +134,27 @@ public class GildedRoseTest {
 	  Item i = new Item("TestName", 1, 2);
 	  assertTrue(i.toString().equals("TestName, 1, 2"));
   }
+  
+  @Test
+  public void noNegativeSellinTest() {
+	  GildedRose app = new GildedRose(items);
+	  
+	  // Find max sellin.
+	  int maxSellin = -1;
+	  for (Item i: items) {
+	    maxSellin = Integer.max(maxSellin, i.sellIn);
+	  }
+	  
+	  // Update quality enough to ensure things would go negative.
+	  for (int i = 0; i <= maxSellin+1; i++) {
+		  app.updateQuality();
+	  }
+
+	  // Make sure all item qualities are never negative.
+	  for (Item i: items) {
+		  assertTrue(i.quality >= 0);
+	  }
+  }
 
 }
 
