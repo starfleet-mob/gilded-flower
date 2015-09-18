@@ -8,7 +8,8 @@ public class UpdatableItem extends Item {
 
 	public UpdatableItem(String name, int sellIn, int quality) {
 		super(name, sellIn, quality);
-		// TODO Auto-generated constructor stub
+		this.quality = Math.max(0, this.quality);
+		
 	}
 	public void update(){
 		if( this.sellIn <=0){
@@ -21,6 +22,5 @@ public class UpdatableItem extends Item {
 		this.quality = Math.max(0, this.quality);
 
 	}
-
 
 }
