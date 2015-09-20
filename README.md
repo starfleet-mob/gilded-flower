@@ -6,6 +6,7 @@
 * David Collins
 * Philipo (not sure what his last name is because it's not in his slack profile)
 * Tony Allen
+* Nallasamy Ponnusamy
 
 ## tonys Mob Team Slack Channel:
 https://agilesoftwaredev.slack.com/messages/tonys/details/
