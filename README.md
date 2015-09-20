@@ -1,3 +1,28 @@
+## tonys Mob Team Members:
+Arleena Faith
+Willard Williamson
+Greg Gerrein
+Antonio Recalderusso
+David Collins
+Philipo (not sure what his last name is because it's not in his slack profile)
+Nallasamy Ponnusammy
+Tony Allen
+
+## tonys Mob Team Slack Channel:
+https://agilesoftwaredev.slack.com/messages/tonys/details/
+
+## tonys Mob Programming Video Files:
+Please note that the video files are of varying quality but we did the best we could.  
+Video files of the mob programming session are located on slack at the following links:
+https://files.slack.com/files-pri/T0A0LEGFR-F0ATFTDGC/download/starfleet-9-17-15-d-lastvideopart-refactoringpart.mp4
+https://files.slack.com/files-pri/T0A0LEGFR-F0ATG5T1R/download/starfleet-9-17-15-a-firstvideopart.mp4
+https://files.slack.com/files-pri/T0A0LEGFR-F0ATP8E3T/download/starfleet-9-17-15-b-secondvideopart-audio-sucks.mp4
+https://files.slack.com/files-pri/T0A0LEGFR-F0ATH6LJF/download/starfleet-9-17-15-c-thirdvideopart-audio-died.mp4
+
+## Location of Code Coverage and Test Results Files
+The files code-coverage.png and test-results.png are located in the same directory as this readme file.
+
+## Original text in the Guilded Rose readme file starts here ...
 This Kata was originally created by Terry Hughes (http://twitter.com/#!/TerryHughes). It is already on GitHub [here](https://github.com/NotMyself/GildedRose). See also [Bobby Johnson's description of the kata](http://iamnotmyself.com/2011/02/13/refactor-this-the-gilded-rose-kata/).
 
 I translated the original C# into a few other languages, (with a little help from my friends!), and slightly changed the starting position. This means I've actually done a small amount of refactoring already compared with the original form of the kata, and made it easier to get going with writing tests by giving you one failing unit test to start with. I also added test fixtures for Text-Based approval testing with TextTest (see [the TextTests](https://github.com/emilybache/GildedRose-Refactoring-Kata/tree/master/texttests))
