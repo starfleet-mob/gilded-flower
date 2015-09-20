@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class GildedRoseTest {
@@ -26,7 +25,7 @@ public class GildedRoseTest {
                 new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 5, 49),
                 new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 5, 40),
                 // this conjured item does not work properly yet
-                new UpdatableItem("Conjured Mana Cake", 3, 6) };
+                new ConjuredItem("Conjured Mana Cake", 3, 6) };
 	}
 
 	
@@ -38,7 +37,8 @@ public class GildedRoseTest {
         assertTrue(items.length == 1);
     }
 
-    // Tests the requirement that "Sulfuras", being a legendary item, never has to be sold or decreases in Quality.
+    // Tests the requirement that "Sulfuras", being a legendary item,
+    // never has to be sold or decreases in Quality.
     @Test
     public void sulfurasBehaviorTest() {
         GildedRose app = new GildedRose(items);
@@ -50,11 +50,8 @@ public class GildedRoseTest {
         		int sellIn = i.sellIn;
         		app.updateQuality();
         		assertTrue(i.sellIn == sellIn);
-
         	}
         }
-        
-        
     }
      
     @Test
@@ -62,8 +59,6 @@ public class GildedRoseTest {
     	
     	String [] decreaseQualityList = {"+5 Dexterity Vest",
     									 "Elixir of the Mongoose",
-    									 //*** TODO: Figure out what's weird about this :D *** 
-    									 //"Backstage passes to a TAFKAL80ETC concert",
     									 "Conjured Mana Cake"};
     	
     	HashMap<String, Integer> decQA = new HashMap<String, Integer>();
@@ -85,7 +80,6 @@ public class GildedRoseTest {
     	}
     }
     
- // -test duplicate for new value
     @Test
     public void lowerValuesTest2() {
     	GildedRose app = new GildedRose(items);  
@@ -98,7 +92,6 @@ public class GildedRoseTest {
     		}
     	}
     }    
-// -end test    
     
     @Test
     public void ageBrieQualityTest() {
@@ -119,14 +112,14 @@ public class GildedRoseTest {
 	   GildedRose app = new GildedRose(items);
 	   
 	   for ( UpdatableItem i : items) {
-   		if ( i.name.equals("Aged Brie")) {
-   			int temp = i.quality;
-   			while (i.sellIn >= 0) {
-   				app.updateQuality();
-   			}
-   			assertTrue( temp < i.quality);	
-   		}
-   	}
+           if ( i.name.equals("Aged Brie")) {
+               int temp = i.quality;
+   			    while (i.sellIn >= 0) {
+   				    app.updateQuality();
+   			    }
+   			    assertTrue( temp < i.quality);	
+   		    }
+   	    }
    }
 
   @Test
@@ -228,31 +221,12 @@ public class GildedRoseTest {
   
   //"Conjured" items degrade in Quality twice as fast as normal items
   @Test 
-  @Ignore
   public void testConjuredItemsDegradeQuality2x() {
-      UpdatableItem i = new UpdatableItem("Conjured Tester", 1, 20);
-      GildedRose app = new GildedRose(new UpdatableItem[]{i});
+      ConjuredItem i = new ConjuredItem("Conjured Tester", 1, 20);
+      GildedRose app = new GildedRose(new ConjuredItem[]{i});
       app.updateQuality();
       assertTrue(i.quality == 18);
       app.updateQuality();
       assertTrue(i.quality == 14);
   } 
 }
-
-/*
-
-Pretty simple, right? Well this is where it gets interesting:
-
-- Once the sell by date has passed, Quality degrades twice as fast
-- The Quality of an item is never negative
-- "Aged Brie" actually increases in Quality the older it gets
-- The Quality of an item is never more than 50
-- "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
-- "Backstage passes", like aged brie, increases in Quality as it's SellIn value approaches;
-Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but
-Quality drops to 0 after the concert
-
-We have recently signed a supplier of conjured items. This requires an update to our system:
-
-- "Conjured" items degrade in Quality twice as fast as normal items
-*/
